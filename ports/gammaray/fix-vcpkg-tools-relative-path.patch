@@ -1,0 +1,71 @@
+diff --git a/app/main.cpp b/app/main.cpp
+index a1696d8a9..a700db762 100644
+--- a/app/main.cpp
++++ b/app/main.cpp
+@@ -111,13 +111,7 @@ int main(int argc, char **argv)
+     QApplication::setQuitOnLastWindowClosed(false);
+ 
+     QApplication app(argc, argv);
+-    Paths::setRelativeRootPath(
+-#if defined(Q_OS_MACX) && defined(GAMMARAY_INSTALL_QT_LAYOUT)
+-        GAMMARAY_INVERSE_BUNDLE_DIR
+-#else
+-        GAMMARAY_INVERSE_BIN_DIR
+-#endif
+-    );
++    Paths::setRelativeRootPath(GAMMARAY_INVERSE_VCPKG_TOOLS_BIN_DIR);
+     ClientConnectionManager::init();
+ 
+     Orchestrator o;
+diff --git a/client/main.cpp b/client/main.cpp
+index 5e473e6da..afb4aab06 100644
+--- a/client/main.cpp
++++ b/client/main.cpp
+@@ -39,7 +39,7 @@ int main(int argc, char **argv)
+     QGuiApplication::setDesktopFileName(QStringLiteral("GammaRay"));
+ 
+     QApplication app(argc, argv);
+-    Paths::setRelativeRootPath(GAMMARAY_INVERSE_LIBEXEC_DIR);
++    Paths::setRelativeRootPath(GAMMARAY_INVERSE_VCPKG_TOOLS_BIN_DIR);
+     Translator::loadStandAloneTranslations();
+     ClientConnectionManager::init();
+ 
+diff --git a/config-gammaray.h.cmake b/config-gammaray.h.cmake
+index 1806df2e4..d4f6b3e0d 100644
+--- a/config-gammaray.h.cmake
++++ b/config-gammaray.h.cmake
+@@ -35,6 +35,8 @@
+ #define GAMMARAY_INVERSE_LIB_DIR "${GAMMARAY_INVERSE_LIB_DIR}"
+ #define GAMMARAY_INVERSE_PROBE_DIR "${GAMMARAY_INVERSE_PROBE_DIR}"
+ #define GAMMARAY_INVERSE_LIBEXEC_DIR "${GAMMARAY_INVERSE_LIBEXEC_DIR}"
++#define GAMMARAY_INVERSE_VCPKG_TOOLS_BIN_DIR "../../"
++
+ 
+ // probe name
+ #define GAMMARAY_PROBE_BASENAME "${PROBE_BASENAME}"
+diff --git a/launcher/app/main.cpp b/launcher/app/main.cpp
+index bc5b9b586..55c2e2875 100644
+--- a/launcher/app/main.cpp
++++ b/launcher/app/main.cpp
+@@ -40,7 +40,7 @@ int main(int argc, char **argv)
+     QGuiApplication::setDesktopFileName(QStringLiteral("GammaRay"));
+ 
+     QApplication app(argc, argv);
+-    Paths::setRelativeRootPath(GAMMARAY_INVERSE_LIBEXEC_DIR);
++    Paths::setRelativeRootPath(GAMMARAY_INVERSE_VCPKG_TOOLS_BIN_DIR);
+     Translator::loadStandAloneTranslations();
+ 
+     LauncherWindow launcher;
+diff --git a/launcher/cli/main.cpp b/launcher/cli/main.cpp
+index 400f5829b..1c50f7f48 100644
+--- a/launcher/cli/main.cpp
++++ b/launcher/cli/main.cpp
+@@ -191,7 +191,7 @@ int main(int argc, char **argv)
+ #else
+     QCoreApplication app(argc, argv);
+ #endif
+-    Paths::setRelativeRootPath(GAMMARAY_INVERSE_BIN_DIR);
++    Paths::setRelativeRootPath(GAMMARAY_INVERSE_VCPKG_TOOLS_BIN_DIR);
+ 
+     QStringList builtInArgs = QStringList() << QStringLiteral("-style")
+                                             << QStringLiteral("-stylesheet")
