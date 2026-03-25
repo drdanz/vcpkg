@@ -1,11 +1,9 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
-    REPO KDE/karchive
+    REPO KDE/kdbusaddons
     REF "v${VERSION}"
-    SHA512 d3516e17a98cfa40ce3f863dc2b209361435de5c76a42423ac2518602ca71b54ac3294ebaa93d38c904b3a0b968fab52e754c32c9c70c938d310e3d5acb50229
+    SHA512 5df716edcd00be1c9ca6debb55cb3acbac92140d8550d78bc0e0bcc738ffffc058986c3c96a8899b9f7e2b98d7f4e8974f9c1c6fad26292eccef1c4bd9466d0a
     HEAD_REF master
-    PATCHES
-        zstd.diff
 )
 
 # Prevent KDEClangFormat from writing to source effectively blocking parallel configure
@@ -13,28 +11,26 @@ file(WRITE "${SOURCE_PATH}/.clang-format" "DisableFormat: true\nSortIncludes: fa
 
 vcpkg_check_features(
     OUT_FEATURE_OPTIONS FEATURE_OPTIONS
-    FEATURES
-        bzip2           WITH_BZIP2
-        bzip2           VCPKG_LOCK_FIND_PACKAGE_BZip2
-        lzma            WITH_LIBLZMA
-        lzma            VCPKG_LOCK_FIND_PACKAGE_LibLZMA
-        zstd            WITH_LIBZSTD
-        zstd            VCPKG_LOCK_FIND_PACKAGE_LibZstd
     INVERTED_FEATURES
-        translations    KF_SKIP_PO_PROCESSING
+        translations KF_SKIP_PO_PROCESSING
 )
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
         -DBUILD_TESTING=OFF
-        -DCMAKE_DISABLE_FIND_PACKAGE_Git=1
         ${FEATURE_OPTIONS}
 )
 
 vcpkg_cmake_install()
-vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/KF6Archive)
+vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/KF6DBusAddons)
 vcpkg_copy_pdbs()
+
+if(VCPKG_TARGET_IS_WINDOWS)
+    file(REMOVE_RECURSE
+        "${CURRENT_PACKAGES_DIR}/bin/kquitapp6${VCPKG_HOST_EXECUTABLE_SUFFIX}"
+        "${CURRENT_PACKAGES_DIR}/debug/bin/kquitapp6${VCPKG_HOST_EXECUTABLE_SUFFIX}")
+endif()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")

@@ -1,11 +1,9 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
-    REPO KDE/karchive
+    REPO KDE/ki18n
     REF "v${VERSION}"
-    SHA512 d3516e17a98cfa40ce3f863dc2b209361435de5c76a42423ac2518602ca71b54ac3294ebaa93d38c904b3a0b968fab52e754c32c9c70c938d310e3d5acb50229
+    SHA512 85ad784de2588777920994f88ddcccfad2549c96ed054d5012df887ace9b89696e0e9d22e623b4a936ceaed3de06d3a8d2bb1feeaa47628587bd1c0cb6c089af
     HEAD_REF master
-    PATCHES
-        zstd.diff
 )
 
 # Prevent KDEClangFormat from writing to source effectively blocking parallel configure
@@ -14,27 +12,29 @@ file(WRITE "${SOURCE_PATH}/.clang-format" "DisableFormat: true\nSortIncludes: fa
 vcpkg_check_features(
     OUT_FEATURE_OPTIONS FEATURE_OPTIONS
     FEATURES
-        bzip2           WITH_BZIP2
-        bzip2           VCPKG_LOCK_FIND_PACKAGE_BZip2
-        lzma            WITH_LIBLZMA
-        lzma            VCPKG_LOCK_FIND_PACKAGE_LibLZMA
-        zstd            WITH_LIBZSTD
-        zstd            VCPKG_LOCK_FIND_PACKAGE_LibZstd
-    INVERTED_FEATURES
-        translations    KF_SKIP_PO_PROCESSING
+        qml BUILD_WITH_QML
 )
+
+vcpkg_find_acquire_program(PYTHON3)
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
-        -DBUILD_TESTING=OFF
-        -DCMAKE_DISABLE_FIND_PACKAGE_Git=1
         ${FEATURE_OPTIONS}
+        -DBUILD_TESTING=OFF
+        -DFALLBACK_KI18N_PYTHON_EXECUTABLE=${PYTHON3}
+        -DKDE_INSTALL_PLUGINDIR=plugins
+        -DKDE_INSTALL_QTPLUGINDIR=plugins
+        -DKDE_INSTALL_QMLDIR=qml
 )
 
 vcpkg_cmake_install()
-vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/KF6Archive)
+vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/KF6I18n)
 vcpkg_copy_pdbs()
+
+# KF6I18nMacros.cmake embeds the Python executable path used at build time as a
+# fallback. This is an absolute path but is ultimately relocatable, so skip the check.
+set(VCPKG_POLICY_SKIP_ABSOLUTE_PATHS_CHECK enabled)
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/share")

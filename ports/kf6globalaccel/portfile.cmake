@@ -1,39 +1,33 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
-    REPO KDE/karchive
+    REPO KDE/kglobalaccel
     REF "v${VERSION}"
-    SHA512 d3516e17a98cfa40ce3f863dc2b209361435de5c76a42423ac2518602ca71b54ac3294ebaa93d38c904b3a0b968fab52e754c32c9c70c938d310e3d5acb50229
+    SHA512 6f69cb1ba5648e033bb5d99d3a558c63f332e8e2ba78fff2678de03b0ad57d5ccb22f60d7f85c7c2251160ac1bf9ad35d3de9e1e12b08aca2f8e6931ee69a5aa
     HEAD_REF master
-    PATCHES
-        zstd.diff
 )
 
 # Prevent KDEClangFormat from writing to source effectively blocking parallel configure
 file(WRITE "${SOURCE_PATH}/.clang-format" "DisableFormat: true\nSortIncludes: false\n")
 
+if(VCPKG_TARGET_IS_LINUX)
+    message(WARNING "${PORT} currently requires the following libraries from the system package manager:\n   libxcb-keysyms1-dev libxcb-xkb-dev libxcb-record0-dev\n\nThese can be installed on Ubuntu systems via apt-get install libxcb-keysyms1-dev libxcb-xkb-dev libxcb-record0-dev")
+endif()
+
 vcpkg_check_features(
     OUT_FEATURE_OPTIONS FEATURE_OPTIONS
-    FEATURES
-        bzip2           WITH_BZIP2
-        bzip2           VCPKG_LOCK_FIND_PACKAGE_BZip2
-        lzma            WITH_LIBLZMA
-        lzma            VCPKG_LOCK_FIND_PACKAGE_LibLZMA
-        zstd            WITH_LIBZSTD
-        zstd            VCPKG_LOCK_FIND_PACKAGE_LibZstd
     INVERTED_FEATURES
-        translations    KF_SKIP_PO_PROCESSING
+        translations KF_SKIP_PO_PROCESSING
 )
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
         -DBUILD_TESTING=OFF
-        -DCMAKE_DISABLE_FIND_PACKAGE_Git=1
         ${FEATURE_OPTIONS}
 )
 
 vcpkg_cmake_install()
-vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/KF6Archive)
+vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/KF6GlobalAccel)
 vcpkg_copy_pdbs()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")

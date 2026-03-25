@@ -2714,7 +2714,7 @@
     },
     "ecm": {
       "baseline": "6.23.0",
-      "port-version": 0
+      "port-version": 1
     },
     "ecos": {
       "baseline": "2.0.10",
@@ -4421,7 +4421,63 @@
       "port-version": 0
     },
     "kf6archive": {
-      "baseline": "6.22.0",
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
+    "kf6breezeicons": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
+    "kf6codecs": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
+    "kf6config": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
+    "kf6coreaddons": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
+    "kf6dbusaddons": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
+    "kf6globalaccel": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
+    "kf6guiaddons": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
+    "kf6i18n": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
+    "kf6itemmodels": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
+    "kf6itemviews": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
+    "kf6solid": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
+    "kf6syntaxhighlighting": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
+    "kf6threadweaver": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
+    "kf6widgetsaddons": {
+      "baseline": "6.23.0",
       "port-version": 0
     },
     "kfr": {
@@ -7661,7 +7717,7 @@
       "port-version": 4
     },
     "plasma-wayland-protocols": {
-      "baseline": "1.14.0",
+      "baseline": "1.19.0",
       "port-version": 0
     },
     "platform-folders": {

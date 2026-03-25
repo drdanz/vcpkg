@@ -1,11 +1,9 @@
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
-    REPO KDE/karchive
+    REPO KDE/kwidgetsaddons
     REF "v${VERSION}"
-    SHA512 d3516e17a98cfa40ce3f863dc2b209361435de5c76a42423ac2518602ca71b54ac3294ebaa93d38c904b3a0b968fab52e754c32c9c70c938d310e3d5acb50229
+    SHA512 431705b493cab8247e61a10f0e57db26142adfdc96665fc37f2effc54953f6a58effd72a0ad371e519b12c910c1719f3193e51079b8b3543877bf2e1aa0ac336
     HEAD_REF master
-    PATCHES
-        zstd.diff
 )
 
 # Prevent KDEClangFormat from writing to source effectively blocking parallel configure
@@ -14,26 +12,21 @@ file(WRITE "${SOURCE_PATH}/.clang-format" "DisableFormat: true\nSortIncludes: fa
 vcpkg_check_features(
     OUT_FEATURE_OPTIONS FEATURE_OPTIONS
     FEATURES
-        bzip2           WITH_BZIP2
-        bzip2           VCPKG_LOCK_FIND_PACKAGE_BZip2
-        lzma            WITH_LIBLZMA
-        lzma            VCPKG_LOCK_FIND_PACKAGE_LibLZMA
-        zstd            WITH_LIBZSTD
-        zstd            VCPKG_LOCK_FIND_PACKAGE_LibZstd
+        designerplugin BUILD_DESIGNERPLUGIN
     INVERTED_FEATURES
-        translations    KF_SKIP_PO_PROCESSING
+        translations   KF_SKIP_PO_PROCESSING
 )
 
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
         -DBUILD_TESTING=OFF
-        -DCMAKE_DISABLE_FIND_PACKAGE_Git=1
+        -DBUILD_PYTHON_BINDINGS=OFF
         ${FEATURE_OPTIONS}
 )
 
 vcpkg_cmake_install()
-vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/KF6Archive)
+vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/KF6WidgetsAddons)
 vcpkg_copy_pdbs()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
