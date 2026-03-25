@@ -4508,6 +4508,10 @@
       "baseline": "6.23.0",
       "port-version": 0
     },
+    "kf6service": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
     "kf6solid": {
       "baseline": "6.23.0",
       "port-version": 0
