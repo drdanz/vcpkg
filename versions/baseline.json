@@ -4524,6 +4524,10 @@
       "baseline": "6.23.0",
       "port-version": 0
     },
+    "kf6wallet": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
     "kf6widgetsaddons": {
       "baseline": "6.23.0",
       "port-version": 0
