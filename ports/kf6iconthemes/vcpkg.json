@@ -1,0 +1,67 @@
+{
+  "name": "kf6iconthemes",
+  "version": "6.23.0",
+  "description": "Icon GUI utilities",
+  "homepage": "https://invent.kde.org/frameworks/kiconthemes",
+  "documentation": "https://api.kde.org/kiconthemes-index.html",
+  "dependencies": [
+    "ecm",
+    "kf6archive",
+    "kf6colorscheme",
+    "kf6i18n",
+    "kf6widgetsaddons",
+    {
+      "name": "qtbase",
+      "default-features": false
+    },
+    {
+      "name": "qtdeclarative",
+      "default-features": false
+    },
+    {
+      "name": "qtsvg",
+      "default-features": false
+    },
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ],
+  "features": {
+    "designerplugin": {
+      "description": "Build Qt Designer plugin",
+      "dependencies": [
+        {
+          "name": "qttools",
+          "default-features": false,
+          "features": [
+            "designer"
+          ]
+        }
+      ]
+    },
+    "kf6breezeicons": {
+      "description": "Use Breeze icons as fallback icon theme",
+      "dependencies": [
+        "kf6breezeicons"
+      ]
+    },
+    "translations": {
+      "description": "Build translations",
+      "dependencies": [
+        {
+          "name": "qttools",
+          "host": true,
+          "default-features": false,
+          "features": [
+            "linguist"
+          ]
+        }
+      ]
+    }
+  }
+}
