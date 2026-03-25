@@ -1,0 +1,90 @@
+{
+  "name": "kf6kio",
+  "version": "6.23.0",
+  "description": "Network transparent access to files and data",
+  "homepage": "https://invent.kde.org/frameworks/kio",
+  "documentation": "https://api.kde.org/kio-index.html",
+  "dependencies": [
+    "ecm",
+    "kf6archive",
+    "kf6bookmarks",
+    "kf6colorscheme",
+    "kf6completion",
+    "kf6config",
+    "kf6coreaddons",
+    {
+      "name": "kf6crash",
+      "platform": "!android"
+    },
+    {
+      "name": "kf6dbusaddons",
+      "platform": "!android"
+    },
+    "kf6guiaddons",
+    "kf6i18n",
+    "kf6iconthemes",
+    "kf6itemviews",
+    "kf6jobwidgets",
+    "kf6service",
+    "kf6solid",
+    "kf6widgetsaddons",
+    "kf6windowsystem",
+    {
+      "name": "libmount",
+      "platform": "linux"
+    },
+    {
+      "name": "libxml2",
+      "platform": "linux"
+    },
+    {
+      "name": "libxslt",
+      "platform": "linux"
+    },
+    {
+      "name": "qtbase",
+      "default-features": false
+    },
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ],
+  "features": {
+    "designerplugin": {
+      "description": "Build Qt Designer plugin",
+      "dependencies": [
+        {
+          "name": "qttools",
+          "default-features": false,
+          "features": [
+            "designer"
+          ]
+        }
+      ]
+    },
+    "kf6wallet": {
+      "description": "KWallet integration for password storage",
+      "dependencies": [
+        "kf6wallet"
+      ]
+    },
+    "translations": {
+      "description": "Build translations",
+      "dependencies": [
+        {
+          "name": "qttools",
+          "host": true,
+          "default-features": false,
+          "features": [
+            "linguist"
+          ]
+        }
+      ]
+    }
+  }
+}
