@@ -1,0 +1,56 @@
+{
+  "name": "kf6configwidgets",
+  "version": "6.23.0",
+  "description": "Widgets for configuration dialogs",
+  "homepage": "https://invent.kde.org/frameworks/kconfigwidgets",
+  "documentation": "https://api.kde.org/kconfigwidgets-index.html",
+  "dependencies": [
+    "ecm",
+    "kf6codecs",
+    "kf6colorscheme",
+    "kf6config",
+    "kf6coreaddons",
+    "kf6guiaddons",
+    "kf6i18n",
+    "kf6widgetsaddons",
+    {
+      "name": "qtbase",
+      "default-features": false
+    },
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ],
+  "features": {
+    "designerplugin": {
+      "description": "Build Qt Designer plugin",
+      "dependencies": [
+        {
+          "name": "qttools",
+          "default-features": false,
+          "features": [
+            "designer"
+          ]
+        }
+      ]
+    },
+    "translations": {
+      "description": "Build translations",
+      "dependencies": [
+        {
+          "name": "qttools",
+          "host": true,
+          "default-features": false,
+          "features": [
+            "linguist"
+          ]
+        }
+      ]
+    }
+  }
+}
