@@ -1,0 +1,40 @@
+{
+  "name": "kf6jobwidgets",
+  "version": "6.23.0",
+  "description": "Widgets for showing progress of asynchronous jobs",
+  "homepage": "https://invent.kde.org/frameworks/kjobwidgets",
+  "documentation": "https://api.kde.org/kjobwidgets-index.html",
+  "dependencies": [
+    "ecm",
+    "kf6coreaddons",
+    "kf6notifications",
+    "kf6widgetsaddons",
+    {
+      "name": "qtbase",
+      "default-features": false
+    },
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ],
+  "features": {
+    "translations": {
+      "description": "Build translations",
+      "dependencies": [
+        {
+          "name": "qttools",
+          "host": true,
+          "default-features": false,
+          "features": [
+            "linguist"
+          ]
+        }
+      ]
+    }
+  }
+}
