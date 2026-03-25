@@ -4444,6 +4444,10 @@
       "baseline": "6.23.0",
       "port-version": 0
     },
+    "kf6completion": {
+      "baseline": "6.23.0",
+      "port-version": 0
+    },
     "kf6config": {
       "baseline": "6.23.0",
       "port-version": 0
