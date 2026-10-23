@@ -7,6 +7,14 @@ vcpkg_from_github(
     SHA512 bfc89e572ffbb5f906c11888882e2d2e99f206ce5397fa9805de35f316709d0be2b20e58dc691077201784583bd5632bfb7ce0e82f50e6c527a5bf73fdc6dd24
     HEAD_REF master
 )
+vcpkg_check_features(
+    OUT_FEATURE_OPTIONS FEATURE_OPTIONS
+    FEATURES
+        qml CMAKE_REQUIRE_FIND_PACKAGE_Qt6Qml
+    INVERTED_FEATURES
+        qml CMAKE_DISABLE_FIND_PACKAGE_Qt6Qml
+)
+
 vcpkg_cmake_configure (
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
@@ -15,6 +23,7 @@ vcpkg_cmake_configure (
         -DKDE_INSTALL_QTPLUGINDIR=plugins
         -DCMAKE_DISABLE_FIND_PACKAGE_Qt6Tools=ON
         -DCMAKE_DISABLE_FIND_PACKAGE_Qt6ToolsTools=ON
+        ${FEATURE_OPTIONS}
 )
 
 vcpkg_cmake_install()

@@ -7,7 +7,10 @@
   "supports": "!staticcrt & !xbox",
   "dependencies": [
     "ecm",
-    "qtdeclarative",
+    {
+      "name": "qtbase",
+      "default-features": false
+    },
     {
       "name": "vcpkg-cmake",
       "host": true
@@ -16,5 +19,16 @@
       "name": "vcpkg-cmake-config",
       "host": true
     }
-  ]
+  ],
+  "features": {
+    "qml": {
+      "description": "Build the scriptable tags plugin, to write tags and filters in JavaScript",
+      "dependencies": [
+        {
+          "name": "qtdeclarative",
+          "default-features": false
+        }
+      ]
+    }
+  }
 }
