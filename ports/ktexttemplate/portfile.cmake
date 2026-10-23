@@ -13,6 +13,8 @@ vcpkg_cmake_configure (
         -DBUILD_TESTING=OFF
         -DKDE_INSTALL_PLUGINDIR=plugins
         -DKDE_INSTALL_QTPLUGINDIR=plugins
+        -DCMAKE_DISABLE_FIND_PACKAGE_Qt6Tools=ON
+        -DCMAKE_DISABLE_FIND_PACKAGE_Qt6ToolsTools=ON
 )
 
 vcpkg_cmake_install()
