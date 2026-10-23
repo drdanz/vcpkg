@@ -4,7 +4,7 @@ vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO KDE/ktexttemplate
     REF "v${VERSION}"
-    SHA512 c7296ea614ed61dd66b0a6fc0b5af104686dd3759064df48478147110b353d7def7396fb84b8f7ccca635ccf6bb86644cf1f890d983974c269512cb3cd475113
+    SHA512 bfc89e572ffbb5f906c11888882e2d2e99f206ce5397fa9805de35f316709d0be2b20e58dc691077201784583bd5632bfb7ce0e82f50e6c527a5bf73fdc6dd24
     HEAD_REF master
     #PATCHES fix-plugin-installation.patch
 )
