@@ -7,6 +7,10 @@ vcpkg_from_github(
     SHA512 bfc89e572ffbb5f906c11888882e2d2e99f206ce5397fa9805de35f316709d0be2b20e58dc691077201784583bd5632bfb7ce0e82f50e6c527a5bf73fdc6dd24
     HEAD_REF master
 )
+
+# Prevent KDEClangFormat from writing to source effectively blocking parallel configure
+file(WRITE "${SOURCE_PATH}/.clang-format" "DisableFormat: true\nSortIncludes: false\n")
+
 vcpkg_check_features(
     OUT_FEATURE_OPTIONS FEATURE_OPTIONS
     FEATURES
@@ -15,7 +19,7 @@ vcpkg_check_features(
         qml CMAKE_DISABLE_FIND_PACKAGE_Qt6Qml
 )
 
-vcpkg_cmake_configure (
+vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
         -DBUILD_TESTING=OFF
