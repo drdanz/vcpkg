@@ -27,7 +27,7 @@ vcpkg_cmake_configure (
 )
 
 vcpkg_cmake_install()
-vcpkg_cmake_config_fixup(PACKAGE_NAME KF6TextTemplate CONFIG_PATH lib/cmake/KF6TextTemplate)
+vcpkg_cmake_config_fixup(PACKAGE_NAME kf6texttemplate CONFIG_PATH lib/cmake/KF6TextTemplate)
 vcpkg_copy_pdbs()
 
 file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/debug/include")
