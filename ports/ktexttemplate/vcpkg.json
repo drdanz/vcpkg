@@ -3,7 +3,7 @@
   "version": "6.31.0",
   "description": "Libraries for text templating with Qt",
   "homepage": "https://invent.kde.org/frameworks/ktexttemplate",
-  "license": "LGPL-2.1-or-later",
+  "license": "LGPL-2.1-or-later AND LGPL-2.0-or-later",
   "supports": "!staticcrt & !xbox",
   "dependencies": [
     "ecm",
