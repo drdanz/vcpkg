@@ -1,0 +1,90 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index aad02e1..dd45e44 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -181,12 +181,9 @@ if(NOT STATIC_ONLY AND NOT SHARED_ONLY)
+   )
+ endif()
+ 
++# The static libraries define these as usage requirements, pkg-config users get them from libical.pc
+ if(STATIC_ONLY)
+-  add_definitions(
+-    -DLIBICAL_ICAL_STATIC_DEFINE
+-    -DLIBICAL_ICALSS_STATIC_DEFINE
+-    -DLIBICAL_VCAL_STATIC_DEFINE
+-  )
++  set(LIBICAL_STATIC_CFLAGS " -DLIBICAL_ICAL_STATIC_DEFINE -DLIBICAL_ICALSS_STATIC_DEFINE -DLIBICAL_VCAL_STATIC_DEFINE")
+ endif()
+ 
+ # must have Perl to create the derived stuff
+diff --git a/libical.pc.in b/libical.pc.in
+index c07eb52..e0836b5 100644
+--- a/libical.pc.in
++++ b/libical.pc.in
+@@ -9,4 +9,4 @@ Version: @LIBICAL_LIB_VERSION_STRING@
+ Libs: -L${libdir} -lical -licalss -licalvcal
+ Libs.private: @PTHREAD_LIBS@
+ @REQUIRES_PRIVATE_ICU@
+-Cflags: -I${includedir}
++Cflags: -I${includedir}@LIBICAL_STATIC_CFLAGS@
+diff --git a/src/libical/CMakeLists.txt b/src/libical/CMakeLists.txt
+index a78ace5..fa17f91 100644
+--- a/src/libical/CMakeLists.txt
++++ b/src/libical/CMakeLists.txt
+@@ -262,8 +262,10 @@ add_dependencies(ical ical-header)
+ if(NOT SHARED_ONLY AND NOT STATIC_ONLY)
+   add_library(ical-static STATIC ${ical_LIB_SRCS})
+   add_dependencies(ical-static ical-header)
++  target_compile_definitions(ical-static PUBLIC LIBICAL_ICAL_STATIC_DEFINE)
+ elseif(STATIC_ONLY)
+   add_library(ical-static ALIAS ical)
++  target_compile_definitions(ical PUBLIC LIBICAL_ICAL_STATIC_DEFINE)
+ endif()
+ 
+ target_include_directories(ical INTERFACE "$<INSTALL_INTERFACE:${INCLUDE_INSTALL_DIR}>")
+@@ -339,6 +341,7 @@ if(WITH_CXX_BINDINGS)
+   if(NOT SHARED_ONLY AND NOT STATIC_ONLY)
+     add_library(ical_cxx-static STATIC ${icalcxx_LIB_SRCS})
+     add_dependencies(ical_cxx-static ical-header)
++    target_compile_definitions(ical_cxx-static PUBLIC LIBICAL_ICAL_STATIC_DEFINE)
+   elseif(STATIC_ONLY)
+     add_library(ical_cxx-static ALIAS ical_cxx)
+   endif()
+diff --git a/src/libicalss/CMakeLists.txt b/src/libicalss/CMakeLists.txt
+index bcd25b2..3b86abc 100644
+--- a/src/libicalss/CMakeLists.txt
++++ b/src/libicalss/CMakeLists.txt
+@@ -82,8 +82,10 @@ add_dependencies(icalss ical-header icalss-header)
+ if(NOT SHARED_ONLY AND NOT STATIC_ONLY)
+   add_library(icalss-static STATIC ${icalss_LIB_SRCS})
+   add_dependencies(icalss-static ical-header icalss-header)
++  target_compile_definitions(icalss-static PUBLIC LIBICAL_ICAL_STATIC_DEFINE LIBICAL_ICALSS_STATIC_DEFINE)
+ elseif(STATIC_ONLY)
+   add_library(icalss-static ALIAS icalss)
++  target_compile_definitions(icalss PUBLIC LIBICAL_ICALSS_STATIC_DEFINE)
+ endif()
+ 
+ target_link_libraries(icalss ical)
+@@ -142,6 +144,7 @@ if(WITH_CXX_BINDINGS)
+   if(NOT SHARED_ONLY AND NOT STATIC_ONLY)
+     add_library(icalss_cxx-static STATIC ${icalsscxx_LIB_SRCS})
+     add_dependencies(icalss_cxx-static ical-header icalss-header)
++    target_compile_definitions(icalss_cxx-static PUBLIC LIBICAL_ICAL_STATIC_DEFINE LIBICAL_ICALSS_STATIC_DEFINE)
+   elseif(STATIC_ONLY)
+     add_library(icalss_cxx-static ALIAS icalss_cxx)
+   endif()
+diff --git a/src/libicalvcal/CMakeLists.txt b/src/libicalvcal/CMakeLists.txt
+index 5cbf32b..0dc5d90 100644
+--- a/src/libicalvcal/CMakeLists.txt
++++ b/src/libicalvcal/CMakeLists.txt
+@@ -30,8 +30,10 @@ add_dependencies(icalvcal ical-header)
+ if(NOT SHARED_ONLY AND NOT STATIC_ONLY)
+   add_library(icalvcal-static STATIC ${icalvcal_LIB_SRCS})
+   add_dependencies(icalvcal-static ical-header)
++  target_compile_definitions(icalvcal-static PUBLIC LIBICAL_ICAL_STATIC_DEFINE LIBICAL_VCAL_STATIC_DEFINE)
+ elseif(STATIC_ONLY)
+   add_library(icalvcal-static ALIAS icalvcal)
++  target_compile_definitions(icalvcal PUBLIC LIBICAL_VCAL_STATIC_DEFINE)
+ endif()
+ 
+ target_link_libraries(icalvcal ical)
