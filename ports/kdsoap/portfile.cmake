@@ -1,7 +1,7 @@
 vcpkg_download_distfile(ARCHIVE
-    URLS "https://github.com/KDAB/KDSoap/releases/download/kdsoap-${VERSION}/kdsoap-${VERSION}.tar.gz"
+    URLS "https://github.com/drdanz/KDSoap/releases/download/kdsoap-${VERSION}/kdsoap-${VERSION}.tar.gz"
     FILENAME "kdsoap-${VERSION}.tar.gz"
-    SHA512 6ed5cd6a0d02a9faf6881facbd28391c553b3671512153ecd058ab53bfbe9d3f0afa3704d580e66010ddf6a3de7e578a632339f8c1ae7529c28f9d5fd7d1eb5f
+    SHA512 cf83e1357eefb8bdf1542850d66d8007d620e4050b5715dc83f4a921d36ce9ce47d0d13c5d85f2b0ff8318d2877eec2f63b931bd47417a81a538327af927da3e
 )
 
 vcpkg_extract_source_archive(
